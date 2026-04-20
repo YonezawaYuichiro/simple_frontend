@@ -17,10 +17,89 @@
 
             <!-- セクション1: 基本 -->
             <h2>1. 基本のボックス</h2>
-            <span class="code-label">class="box"</span>
-            <div class="box">
+            <span class="code-label" id="current-class-label">class="box"</span>
+            <div class="box" id="target-box">
                 これが基本のボックスです。薄いグレーの背景と余白が設定されています。
             </div>
+
+            <!-- 操作パネル -->
+            <div
+                style="
+                    margin-top: 30px;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-radius: 8px;
+                "
+            >
+                <h3>クラスを操作してみよう</h3>
+                <input
+                    type="text"
+                    id="class-input"
+                    placeholder="例: bg-blue"
+                    style="padding: 8px; font-size: 16px; width: 200px"
+                />
+                <button
+                    onclick="addClass()"
+                    style="padding: 8px 16px; font-size: 16px; cursor: pointer"
+                >
+                    追加
+                </button>
+                <button
+                    onclick="removeClass()"
+                    style="padding: 8px 16px; font-size: 16px; cursor: pointer"
+                >
+                    削除
+                </button>
+                <button
+                    onclick="toggleClass()"
+                    style="padding: 8px 16px; font-size: 16px; cursor: pointer"
+                >
+                    トグル
+                </button>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #666">
+                    ※
+                    トグルは、クラスが設定されていなければ「追加」し、すでに設定されていれば「削除」します。
+                </p>
+            </div>
         </div>
+
+        <script>
+            // 操作対象の要素を取得
+            const targetBox = document.getElementById("target-box");
+            const classInput = document.getElementById("class-input");
+            const classLabel = document.getElementById("current-class-label");
+
+            // 現在のクラス名を表示に反映する関数
+            function updateLabel() {
+                classLabel.textContent = 'class="' + targetBox.className + '"';
+            }
+
+            // 「追加」ボタンの処理
+            function addClass() {
+                const className = classInput.value.trim();
+                if (className) {
+                    targetBox.classList.add(className);
+                    updateLabel();
+                }
+            }
+
+            // 「削除」ボタンの処理
+            function removeClass() {
+                const className = classInput.value.trim();
+                if (className) {
+                    targetBox.classList.remove(className);
+                    updateLabel();
+                }
+            }
+
+            // 「トグル」ボタンの処理
+            function toggleClass() {
+                const className = classInput.value.trim();
+                if (className) {
+                    targetBox.classList.toggle(className);
+                    updateLabel();
+                }
+            }
+        </script>
     </body>
 </html>
